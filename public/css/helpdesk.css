@@ -1,0 +1,90 @@
+/* Tema Helpdesk BPSDM — profesional, bersih, resmi (PRD Bagian 11).
+   Aksen: hijau tua teduh; dominan netral putih/abu terang. */
+:root {
+    --hd-accent: #0b5a34;
+    --hd-accent-dark: #094a2b;
+    --hd-accent-soft: #e7f2ec;
+    --hd-ink: #1f2937;
+    --hd-muted: #6b7280;
+    --bs-link-color: #0b5a34;
+    --bs-link-hover-color: #094a2b;
+}
+
+body {
+    color: var(--hd-ink);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ---------- Navbar publik ---------- */
+.hd-navbar {
+    background: linear-gradient(90deg, var(--hd-accent), var(--hd-accent-dark));
+}
+.hd-navbar .navbar-brand,
+.hd-navbar .nav-link { color: rgba(255, 255, 255, .92); }
+.hd-navbar .nav-link:hover,
+.hd-navbar .nav-link:focus { color: #fff; }
+.hd-brand-sub { font-size: .72rem; opacity: .8; letter-spacing: .02em; }
+.hd-logo {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(255, 255, 255, .16); color: #fff; font-size: 1.15rem;
+}
+
+/* ---------- Hero ---------- */
+.hd-hero {
+    background: radial-gradient(1200px 400px at 80% -10%, rgba(11,90,52,.10), transparent),
+                var(--hd-accent-soft);
+    border-radius: 18px;
+}
+
+/* ---------- Kartu ---------- */
+.card { border: 1px solid #e8ebee; border-radius: 12px; }
+.hd-stat-card { border-radius: 12px; }
+.hd-stat-card .hd-stat-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem;
+}
+.hd-stat-value { font-size: 1.75rem; font-weight: 700; line-height: 1; }
+.hd-stat-label { color: var(--hd-muted); font-size: .82rem; }
+
+/* ---------- Tombol aksen ---------- */
+.btn-accent { background: var(--hd-accent); border-color: var(--hd-accent); color: #fff; }
+.btn-accent:hover, .btn-accent:focus { background: var(--hd-accent-dark); border-color: var(--hd-accent-dark); color: #fff; }
+.btn-outline-accent { color: var(--hd-accent); border-color: var(--hd-accent); }
+.btn-outline-accent:hover { background: var(--hd-accent); color: #fff; }
+.text-accent { color: var(--hd-accent) !important; }
+
+/* ---------- Footer ---------- */
+.hd-footer { background: #0e1a14; color: #d7e3dc; }
+
+/* ---------- Timeline aktivitas ---------- */
+.hd-timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+.hd-timeline::before {
+    content: ""; position: absolute; left: 9px; top: 4px; bottom: 4px; width: 2px; background: #e5e7eb;
+}
+.hd-timeline li { position: relative; padding: 0 0 1rem 2rem; }
+.hd-timeline li .hd-dot {
+    position: absolute; left: 2px; top: 3px; width: 16px; height: 16px; border-radius: 50%;
+    background: #fff; border: 3px solid var(--hd-accent);
+}
+
+/* ---------- Admin shell ---------- */
+.hd-admin { background: #f4f6f8; }
+.hd-sidebar {
+    background: #0e1a14; color: #cdd8d1; min-height: 100vh; width: 250px;
+}
+.hd-sidebar a { color: #cdd8d1; text-decoration: none; border-radius: 8px; }
+.hd-sidebar a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.hd-sidebar a.active { background: var(--hd-accent); color: #fff; }
+.hd-sidebar .hd-side-label { font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #7f9488; }
+.hd-topbar { background: #fff; border-bottom: 1px solid #e8ebee; }
+
+@media (max-width: 991.98px) {
+    .hd-sidebar { min-height: auto; width: 100%; }
+}
+
+/* Aksesibilitas: fokus terlihat */
+a:focus-visible, .btn:focus-visible, .form-control:focus, .form-select:focus {
+    outline: 2px solid rgba(11,90,52,.35); outline-offset: 1px;
+}
+.form-control:focus, .form-select:focus { border-color: var(--hd-accent); box-shadow: 0 0 0 .2rem rgba(11,90,52,.15); }

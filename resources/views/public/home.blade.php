@@ -16,7 +16,9 @@
                 </div>
             </div>
             <div class="col-lg-5 text-center d-none d-lg-block">
-                <i class="bi bi-headset text-accent" style="font-size:10rem;opacity:.85;"></i>
+                <img src="{{ asset('images/logo-bpsdm.png') }}" alt="Logo BPSDM Provinsi Jawa Barat" class="img-fluid" style="max-height:180px;"
+                     onerror="this.style.display='none';document.getElementById('heroFallback').style.display='inline-block';">
+                <i id="heroFallback" class="bi bi-headset text-accent" style="display:none;font-size:10rem;opacity:.85;"></i>
             </div>
         </div>
     </div>
@@ -28,10 +30,11 @@
             ['bi-diagram-3', 'Ditangani', 'Tiket otomatis diarahkan ke bidang yang berwenang.'],
             ['bi-check2-circle', 'Selesai', 'Pantau status hingga penyelesaian melalui halaman pelacakan.'],
         ]; @endphp
+        @php $tones = ['text-accent', 'text-brand-blue', 'text-brand-yellow', 'text-accent']; @endphp
         @foreach ($steps as [$icon, $title, $desc])
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 p-3">
-                    <div class="hd-stat-icon bg-body-secondary text-accent mb-2"><i class="bi {{ $icon }}"></i></div>
+                    <div class="hd-stat-icon bg-body-secondary {{ $tones[$loop->index] ?? 'text-accent' }} mb-2"><i class="bi {{ $icon }}"></i></div>
                     <h6 class="fw-semibold mb-1">{{ $loop->iteration }}. {{ $title }}</h6>
                     <p class="text-secondary small mb-0">{{ $desc }}</p>
                 </div>

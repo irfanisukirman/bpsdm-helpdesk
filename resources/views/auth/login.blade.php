@@ -4,7 +4,9 @@
     <div class="row justify-content-center">
         <div class="col-lg-5 col-xl-4">
             <div class="text-center mb-3">
-                <span class="hd-logo mx-auto mb-2" style="background:var(--hd-accent);"><i class="bi bi-person-lock"></i></span>
+                <img src="{{ asset('images/logo-bpsdm.png') }}" alt="Logo BPSDM Provinsi Jawa Barat" class="hd-auth-logo mb-3"
+                     onerror="this.style.display='none';document.getElementById('authFallback').style.display='inline-flex';">
+                <span id="authFallback" class="hd-logo mx-auto mb-2" style="display:none;background:var(--hd-accent);"><i class="bi bi-person-lock"></i></span>
                 <h1 class="h4 fw-bold mb-1">Masuk Area Internal</h1>
                 <p class="text-secondary small">Khusus admin bidang, super admin, dan pimpinan.</p>
             </div>

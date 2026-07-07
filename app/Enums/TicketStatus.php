@@ -25,7 +25,7 @@ enum TicketStatus: string
         return match ($this) {
             self::Diterima => 'bg-secondary-subtle text-secondary-emphasis',
             self::Didistribusikan => 'bg-info-subtle text-info-emphasis',
-            self::Diproses => 'bg-primary-subtle text-primary-emphasis',
+            self::Diproses => 'bg-warning-subtle text-warning-emphasis',
             self::Selesai => 'bg-success-subtle text-success-emphasis',
         };
     }

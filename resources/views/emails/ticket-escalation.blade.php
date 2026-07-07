@@ -32,7 +32,7 @@
     </table>
 
     <p style="margin:24px 0;">
-        <a href="{{ route('admin.tickets.index') }}" style="background:#0b5a34;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:6px;display:inline-block;">Buka Dashboard</a>
+        <a href="{{ route('admin.tickets.index') }}" style="background:#008a41;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:6px;display:inline-block;">Buka Dashboard</a>
     </p>
 
     <p style="color:#6b7280;">Total: {{ $tickets->count() }} tiket.</p>

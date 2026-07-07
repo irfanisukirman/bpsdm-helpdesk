@@ -59,8 +59,9 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" crossorigin="anonymous"></script>
 <script>
-    const accent = '#0b5a34';
-    const palette = ['#0b5a34','#2f8f5b','#4bacc6','#6c8ebf','#c9a227','#a05252'];
+    const accent = '#008a41';
+    // Palet selaras identitas BPSDM Jabar (hijau, cyan, kuning + variannya)
+    const palette = ['#008a41','#159fd6','#f7b21a','#4bbf7b','#66c6ea','#f9cd63'];
 
     new Chart(document.getElementById('chartMonth'), {
         type: 'line',

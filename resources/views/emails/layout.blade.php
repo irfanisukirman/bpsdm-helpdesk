@@ -11,7 +11,7 @@
             <td align="center">
                 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #e5e7eb;">
                     <tr>
-                        <td style="background:#0b5a34;padding:20px 28px;">
+                        <td style="background:#008a41;padding:20px 28px;">
                             <span style="color:#ffffff;font-size:18px;font-weight:bold;">Helpdesk BPSDM Jawa Barat</span>
                         </td>
                     </tr>

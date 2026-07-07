@@ -8,7 +8,7 @@
     <table role="presentation" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:16px 0;">
         <tr>
             <td style="color:#6b7280;width:150px;">Nomor Tiket</td>
-            <td style="font-weight:bold;font-size:16px;color:#0b5a34;">{{ $ticket->ticket_number }}</td>
+            <td style="font-weight:bold;font-size:16px;color:#008a41;">{{ $ticket->ticket_number }}</td>
         </tr>
         <tr>
             <td style="color:#6b7280;">Judul Kendala</td>
@@ -31,7 +31,7 @@
     <p><strong>Mohon simpan nomor tiket di atas.</strong> Anda dapat memantau status penanganan kapan saja melalui halaman pelacakan dengan memasukkan nomor tiket dan alamat surel Anda.</p>
 
     <p style="margin:24px 0;">
-        <a href="{{ route('track.form') }}" style="background:#0b5a34;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:6px;display:inline-block;">Lacak Tiket Saya</a>
+        <a href="{{ route('track.form') }}" style="background:#008a41;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:6px;display:inline-block;">Lacak Tiket Saya</a>
     </p>
 
     <p style="color:#6b7280;">Salam,<br>Tim Helpdesk BPSDM Provinsi Jawa Barat</p>

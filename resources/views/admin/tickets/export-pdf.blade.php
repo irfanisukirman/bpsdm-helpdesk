@@ -5,11 +5,11 @@
     <style>
         * { font-family: DejaVu Sans, sans-serif; }
         body { font-size: 10px; color: #1f2937; }
-        h1 { font-size: 15px; margin: 0 0 2px; color: #0b5a34; }
+        h1 { font-size: 15px; margin: 0 0 2px; color: #006c33; }
         .sub { color: #6b7280; font-size: 9px; margin-bottom: 10px; }
         table { width: 100%; border-collapse: collapse; }
         th, td { border: 1px solid #d1d5db; padding: 4px 6px; text-align: left; }
-        th { background: #e7f2ec; color: #094a2b; }
+        th { background: #e6f4ec; color: #006c33; }
         tr:nth-child(even) td { background: #f9fafb; }
     </style>
 </head>

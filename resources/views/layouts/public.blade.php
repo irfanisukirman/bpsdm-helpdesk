@@ -10,7 +10,7 @@
     <link href="{{ asset('css/helpdesk.css') }}" rel="stylesheet">
 </head>
 <body class="hd-public d-flex flex-column min-vh-100 bg-body-tertiary">
-    <nav class="navbar navbar-expand-lg hd-navbar shadow-sm">
+    <nav class="navbar navbar-expand-lg hd-navbar shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
                 <span class="hd-logo"><i class="bi bi-headset"></i></span>

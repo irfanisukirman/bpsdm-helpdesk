@@ -82,6 +82,23 @@ body {
 .hd-stat-value { font-size: 1.75rem; font-weight: 700; line-height: 1; }
 .hd-stat-label { color: var(--hd-muted); font-size: .82rem; }
 
+/* ---------- Kartu langkah beranda (Opsi B) ---------- */
+.hd-step { position: relative; overflow: hidden; transition: box-shadow .2s ease, transform .2s ease; }
+.hd-step:hover { box-shadow: 0 10px 28px rgba(16,24,40,.10); transform: translateY(-3px); }
+.hd-step .hd-step-num { position: absolute; top: 14px; right: 18px; font-size: .8rem; font-weight: 700; color: #c7ccd1; letter-spacing: .04em; }
+.hd-step .hd-step-badge {
+    width: 66px; height: 66px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.7rem; margin: .25rem auto 1rem;
+}
+.hd-step::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: transparent; }
+.hd-step.hd-bar-green::after { background: var(--hd-green); }
+.hd-step.hd-bar-blue::after { background: var(--hd-blue); }
+.hd-step.hd-bar-yellow::after { background: var(--hd-yellow); }
+.hd-grad-green { background: linear-gradient(135deg, #00a14e, #006c33); }
+.hd-grad-blue { background: linear-gradient(135deg, #33b4e6, #1188bb); }
+.hd-grad-yellow { background: linear-gradient(135deg, #ffc93f, #dd9c00); }
+
 /* ---------- Tombol & teks aksen ---------- */
 .btn-accent { background: var(--hd-accent-btn); border-color: var(--hd-accent-btn); color: #fff; }
 .btn-accent:hover, .btn-accent:focus { background: var(--hd-green-dark); border-color: var(--hd-green-dark); color: #fff; }

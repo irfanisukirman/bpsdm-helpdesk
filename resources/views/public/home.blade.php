@@ -25,17 +25,17 @@
 
     <div class="row g-3 mb-4">
         @php $steps = [
-            ['bi-pencil-square', 'Ajukan', 'Isi formulir kendala Anda beserta lampiran bila diperlukan.'],
-            ['bi-hash', 'Dapatkan Nomor', 'Sistem memberi nomor tiket unik dan mengirimkannya ke surel Anda.'],
-            ['bi-diagram-3', 'Ditangani', 'Tiket otomatis diarahkan ke bidang yang berwenang.'],
-            ['bi-check2-circle', 'Selesai', 'Pantau status hingga penyelesaian melalui halaman pelacakan.'],
+            ['bi-pencil-square', 'Ajukan', 'Isi formulir kendala Anda beserta lampiran bila diperlukan.', 'hd-grad-green', 'hd-bar-green'],
+            ['bi-ticket-perforated', 'Dapatkan Nomor', 'Sistem memberi nomor tiket unik dan mengirimkannya ke surel Anda.', 'hd-grad-blue', 'hd-bar-blue'],
+            ['bi-gear', 'Ditangani', 'Tiket otomatis diarahkan ke bidang yang berwenang.', 'hd-grad-yellow', 'hd-bar-yellow'],
+            ['bi-shield-check', 'Selesai', 'Pantau status hingga penyelesaian melalui halaman pelacakan.', 'hd-grad-green', 'hd-bar-green'],
         ]; @endphp
-        @php $tones = ['text-accent', 'text-brand-blue', 'text-brand-yellow', 'text-accent']; @endphp
-        @foreach ($steps as [$icon, $title, $desc])
+        @foreach ($steps as [$icon, $title, $desc, $grad, $bar])
             <div class="col-md-6 col-lg-3">
-                <div class="card h-100 p-3">
-                    <div class="hd-stat-icon bg-body-secondary {{ $tones[$loop->index] ?? 'text-accent' }} mb-2"><i class="bi {{ $icon }}"></i></div>
-                    <h6 class="fw-semibold mb-1">{{ $loop->iteration }}. {{ $title }}</h6>
+                <div class="card hd-step h-100 p-4 text-center {{ $bar }}">
+                    <span class="hd-step-num">{{ sprintf('%02d', $loop->iteration) }}</span>
+                    <span class="hd-step-badge {{ $grad }}"><i class="bi {{ $icon }}"></i></span>
+                    <h6 class="fw-semibold mb-1">{{ $title }}</h6>
                     <p class="text-secondary small mb-0">{{ $desc }}</p>
                 </div>
             </div>

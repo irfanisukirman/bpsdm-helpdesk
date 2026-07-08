@@ -87,7 +87,7 @@ return [
     | Integrasi LMS (Model B1 — sekadar tautan pengarah, PRD Bagian 12)
     |--------------------------------------------------------------------------
     */
-    'lms_url' => env('LMS_URL', 'https://lms.bpsdm.jabarprov.go.id'),
+    'lms_url' => env('LMS_URL', 'https://jabarcorputalent.jabarprov.go.id/'),
 
     /*
     |--------------------------------------------------------------------------

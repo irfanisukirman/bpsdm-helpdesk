@@ -49,7 +49,7 @@
                 <p class="text-secondary mb-0 small">Anda dapat mengakses Helpdesk ini langsung dari menu LMS. Cukup sertakan NIP (opsional) pada formulir untuk mempermudah verifikasi.</p>
             </div>
             <div class="col-md-4 text-md-end">
-                <a href="{{ config('helpdesk.lms_url') }}" class="btn btn-outline-secondary"><i class="bi bi-box-arrow-up-right me-1"></i> Buka LMS</a>
+                <a href="{{ config('helpdesk.lms_url') }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary"><i class="bi bi-box-arrow-up-right me-1"></i> Buka LMS</a>
             </div>
         </div>
     </div>

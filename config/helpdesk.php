@@ -91,6 +91,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Live Chat (PRD Bagian 13.2 — Chat Support)
+    |--------------------------------------------------------------------------
+    | Widget chat pihak ketiga (mis. Tawk.to). Nonaktif sampai ID diisi di
+    | .env. Hanya ditampilkan pada area publik, bukan dashboard admin.
+    */
+    'livechat' => [
+        'enabled' => (bool) env('LIVECHAT_ENABLED', false),
+        'provider' => env('LIVECHAT_PROVIDER', 'tawkto'),
+        'tawkto' => [
+            'property_id' => env('TAWKTO_PROPERTY_ID'),
+            'widget_id' => env('TAWKTO_WIDGET_ID', 'default'),
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Identitas instansi (header/footer)
     |--------------------------------------------------------------------------
     */

@@ -1,0 +1,6 @@
+{
+  "scriptId": "GANTI_DENGAN_SCRIPT_ID_ANDA",
+  "rootDir": "./gas-sp-visum",
+  "fileExtension": "gs",
+  "filePushOrder": ["Sheets.gs", "Documents.gs", "Code.gs"]
+}

@@ -1,0 +1,155 @@
+<script>
+(function () {
+  var FIELDS = ['nomor_sp','tgl_surat','pengundang','und_nomor','und_tgl','und_hal',
+    'maksud','tempat','alamat','kota','angkutan','tgl_berangkat','tgl_kembali',
+    'pj_nama','pj_jabatan','pj_pangkat','pj_nip',
+    'ttd_jabatan','ttd_nama','ttd_pangkat','ttd_nip','kpa_nama','kpa_nip','kedudukan'];
+
+  var selected = [];      // id pegawai, terurut sesuai pemilihan
+  var view = 'sp';
+  var timer = null;
+
+  function $(id){ return document.getElementById(id); }
+  function setVal(id, v){ var el = $(id); if (el) el.value = v == null ? '' : v; }
+
+  // ---- muat data awal
+  google.script.run.withSuccessHandler(init).withFailureHandler(fatal).getBootstrap();
+
+  function init(boot){
+    // paket
+    $('paket').innerHTML = boot.paket.map(function(p){
+      return '<option value="'+p.id+'">'+escapeHtml(p.nama)+'</option>';
+    }).join('');
+
+    // nilai baku (contoh dari PRD; referensi dari Spreadsheet)
+    var r = boot.ref || {};
+    setVal('tgl_surat', boot.hariIni);
+    setVal('pengundang', 'Kepala Biro Organisasi Sekretariat Daerah Provinsi Jawa Barat');
+    setVal('und_nomor', '005/1123/ORG');
+    setVal('und_tgl', boot.hariIni);
+    setVal('und_hal', 'Undangan Konsinyering');
+    setVal('maksud', 'Konsinyering Penyusunan Evidence Penilaian SAKIP berbasis AI');
+    setVal('tempat', 'Ruang Rapat Soehoed Warnaen Lantai 3, Bappeda Provinsi Jawa Barat');
+    setVal('alamat', 'Jalan Ir. H. Djuanda Nomor 287');
+    setVal('kota', 'Kota Bandung');
+    setVal('angkutan', 'Kendaraan Dinas Roda Empat');
+    setVal('tgl_berangkat', boot.hariIni);
+    setVal('tgl_kembali', boot.hariIni);
+    setVal('ttd_jabatan', r.ttd_jabatan);
+    setVal('ttd_nama', r.ttd_nama);
+    setVal('ttd_pangkat', r.ttd_pangkat);
+    setVal('ttd_nip', r.ttd_nip);
+    setVal('kpa_nama', r.kpa_nama);
+    setVal('kpa_nip', r.kpa_nip);
+    setVal('kedudukan', r.kedudukan || 'Kota Cimahi');
+
+    // pegawai
+    $('empList').innerHTML = boot.pegawai.map(function(p){
+      return '<label class="emp" data-id="'+p.id+'">'
+        + '<input type="checkbox" value="'+p.id+'">'
+        + '<span><span class="en">'+escapeHtml(p.nama)+'</span><br>'
+        + '<span class="em">'+escapeHtml(p.pangkat)+' · '+escapeHtml(p.nip)+'</span></span>'
+        + '<span class="ord" hidden></span></label>';
+    }).join('');
+    if (boot.pegawai[0]) selected.push(boot.pegawai[0].id);
+    if (boot.pegawai[1]) selected.push(boot.pegawai[1].id);
+
+    $('empList').querySelectorAll('input[type=checkbox]').forEach(function(cb){
+      cb.addEventListener('change', function(){
+        var id = cb.value;
+        if (cb.checked){ if (selected.indexOf(id) < 0) selected.push(id); }
+        else { selected = selected.filter(function(x){ return x !== id; }); }
+        syncEmp(); schedule();
+      });
+    });
+
+    FIELDS.forEach(function(id){
+      var el = $(id);
+      if (el) el.addEventListener('input', schedule);
+    });
+
+    syncEmp();
+    refresh(true);
+  }
+
+  function syncEmp(){
+    document.querySelectorAll('.emp').forEach(function(el){
+      var id = el.getAttribute('data-id');
+      var pos = selected.indexOf(id);
+      var cb = el.querySelector('input'), ord = el.querySelector('.ord');
+      cb.checked = pos > -1;
+      el.classList.toggle('on', pos > -1);
+      if (pos > -1){ ord.hidden = false; ord.textContent = pos + 1; } else ord.hidden = true;
+    });
+    $('cnt').textContent = Math.max(1, selected.length);
+  }
+
+  function payload(){
+    var o = { paket: $('paket').value, pegawai: selected.slice() };
+    FIELDS.forEach(function(id){ var el = $(id); o[id] = el ? el.value : ''; });
+    return o;
+  }
+
+  function lamaHint(){
+    var a = $('tgl_berangkat').value, b = $('tgl_kembali').value || a;
+    var lama = 1;
+    if (a){ lama = Math.max(1, Math.round((new Date(b) - new Date(a))/86400000) + 1); }
+    $('lamaHint').textContent = 'Lama perjalanan dihitung otomatis: ' + lama + ' hari.';
+  }
+
+  // debounce panggilan pratinjau ke server
+  function schedule(){ lamaHint(); if (timer) clearTimeout(timer); timer = setTimeout(function(){ refresh(false); }, 400); }
+
+  function refresh(showSpin){
+    if (showSpin) $('spin').classList.remove('d-none');
+    google.script.run
+      .withSuccessHandler(function(html){
+        $('preview').srcdoc = html;
+        $('spin').classList.add('d-none');
+      })
+      .withFailureHandler(function(e){ $('spin').classList.add('d-none'); fatal(e); })
+      .buildPreview(view, payload());
+  }
+
+  // tab
+  document.querySelectorAll('#tabs .nav-link').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('#tabs .nav-link').forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      view = t.getAttribute('data-t');
+      refresh(true);
+    });
+  });
+
+  // buat PDF
+  $('genBtn').addEventListener('click', function(){
+    if (selected.length === 0){ showResult('warn', 'Pilih minimal satu pegawai terlebih dahulu.'); return; }
+    $('genBtn').disabled = true;
+    $('spin').classList.remove('d-none');
+    google.script.run
+      .withSuccessHandler(function(res){
+        $('genBtn').disabled = false; $('spin').classList.add('d-none');
+        showResult('ok', 'Berhasil dibuat ('+res.jumlahPegawai+' pegawai). '
+          + '<a href="'+res.spUrl+'" target="_blank">Unduh SP</a> · '
+          + '<a href="'+res.spdUrl+'" target="_blank">Unduh SPD+Visum</a> · '
+          + '<a href="'+res.folderUrl+'" target="_blank">Folder arsip</a>');
+      })
+      .withFailureHandler(function(e){
+        $('genBtn').disabled = false; $('spin').classList.add('d-none');
+        showResult('warn', 'Gagal: ' + (e && e.message ? e.message : e));
+      })
+      .generateDocuments(payload());
+  });
+
+  function showResult(kind, html){
+    var el = $('result');
+    el.className = 'result';
+    el.style.color = kind === 'ok' ? '#0f4a2c' : '#8a4b00';
+    el.innerHTML = html;
+    el.classList.remove('d-none');
+  }
+  function fatal(e){ showResult('warn', (e && e.message ? e.message : e) + ' — sudahkah fungsi setup() dijalankan?'); }
+  function escapeHtml(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]; }); }
+})();
+</script>

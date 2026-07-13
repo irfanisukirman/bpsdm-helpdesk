@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <?!= include('stylesheet'); ?>
+</head>
+<body>
+<nav class="navbar app-nav px-3">
+  <div class="d-flex align-items-center gap-2">
+    <span class="brand-mark">SP</span>
+    <div>
+      <div class="fw-semibold lh-1">Generator Surat Perintah &amp; SPD/Visum</div>
+      <small class="text-muted-2">BPSDM Provinsi Jawa Barat</small>
+    </div>
+  </div>
+  <span class="badge rounded-pill badge-soft">Generator dokumen</span>
+</nav>
+
+<div class="workspace">
+  <!-- ============ FORM ============ -->
+  <form id="form" class="form-pane" autocomplete="off">
+    <div class="grp">
+      <div class="grp-title"><span class="n">1</span> Identitas Surat</div>
+      <div class="row g-2">
+        <div class="col-7">
+          <label class="form-label">Nomor SP <span class="opt">— boleh kosong</span></label>
+          <input type="text" class="form-control form-control-sm" id="nomor_sp" placeholder="800/____/BPSDM">
+        </div>
+        <div class="col-5">
+          <label class="form-label">Tanggal surat</label>
+          <input type="date" class="form-control form-control-sm" id="tgl_surat">
+        </div>
+      </div>
+      <div class="mt-2">
+        <label class="form-label">Paket dasar hukum</label>
+        <select class="form-select form-select-sm" id="paket"></select>
+        <div class="hint">Butir 1–3 dasar hukum diisi otomatis dari paket ini.</div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-title"><span class="n">2</span> Dasar Tambahan — Surat Undangan</div>
+      <label class="form-label">Pejabat pengundang</label>
+      <input type="text" class="form-control form-control-sm" id="pengundang">
+      <div class="row g-2 mt-1">
+        <div class="col-6">
+          <label class="form-label">Nomor undangan</label>
+          <input type="text" class="form-control form-control-sm" id="und_nomor">
+        </div>
+        <div class="col-6">
+          <label class="form-label">Tanggal undangan</label>
+          <input type="date" class="form-control form-control-sm" id="und_tgl">
+        </div>
+      </div>
+      <label class="form-label mt-1">Hal / perihal</label>
+      <input type="text" class="form-control form-control-sm" id="und_hal">
+    </div>
+
+    <div class="grp">
+      <div class="grp-title"><span class="n">3</span> Kegiatan &amp; Perjalanan</div>
+      <label class="form-label">Maksud kegiatan</label>
+      <textarea class="form-control form-control-sm" id="maksud" rows="2"></textarea>
+      <label class="form-label mt-1">Tempat kegiatan</label>
+      <input type="text" class="form-control form-control-sm" id="tempat">
+      <label class="form-label mt-1">Alamat lengkap</label>
+      <input type="text" class="form-control form-control-sm" id="alamat">
+      <div class="row g-2 mt-1">
+        <div class="col-6">
+          <label class="form-label">Kota tujuan</label>
+          <input type="text" class="form-control form-control-sm" id="kota">
+        </div>
+        <div class="col-6">
+          <label class="form-label">Alat angkutan</label>
+          <input type="text" class="form-control form-control-sm" id="angkutan">
+        </div>
+      </div>
+      <div class="row g-2 mt-1">
+        <div class="col-6">
+          <label class="form-label">Tanggal berangkat</label>
+          <input type="date" class="form-control form-control-sm" id="tgl_berangkat">
+        </div>
+        <div class="col-6">
+          <label class="form-label">Tanggal kembali</label>
+          <input type="date" class="form-control form-control-sm" id="tgl_kembali">
+        </div>
+      </div>
+      <div class="hint" id="lamaHint"></div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-title"><span class="n">4</span> Daftar Pegawai</div>
+      <div class="hint mb-2">Centang pegawai; nomor urut mengikuti urutan pemilihan. SPD dibuat satu lembar per pegawai.</div>
+      <div id="empList" class="emp-list"></div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-title"><span class="n">5</span> Pejabat Pengesah di Tujuan <span class="opt">(opsional)</span></div>
+      <div class="hint mb-2">Kosongkan bila akan ditulis tangan &amp; dicap di lokasi (bagian II visum).</div>
+      <div class="row g-2">
+        <div class="col-6"><label class="form-label">Nama</label><input type="text" class="form-control form-control-sm" id="pj_nama"></div>
+        <div class="col-6"><label class="form-label">Jabatan</label><input type="text" class="form-control form-control-sm" id="pj_jabatan"></div>
+        <div class="col-6"><label class="form-label">Pangkat</label><input type="text" class="form-control form-control-sm" id="pj_pangkat"></div>
+        <div class="col-6"><label class="form-label">NIP</label><input type="text" class="form-control form-control-sm" id="pj_nip"></div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="accordion accordion-flush" id="refAcc">
+        <div class="accordion-item" style="background:transparent">
+          <div class="grp-title mb-0">
+            <button class="btn btn-link p-0 text-decoration-none accordion-button collapsed ref-toggle" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#refBody">
+              <span class="n">R</span> Referensi — penanda tangan &amp; instansi
+            </button>
+          </div>
+          <div id="refBody" class="accordion-collapse collapse">
+            <div class="pt-2">
+              <label class="form-label">Penanda tangan SP — jabatan</label>
+              <input type="text" class="form-control form-control-sm" id="ttd_jabatan">
+              <div class="row g-2 mt-1">
+                <div class="col-7"><label class="form-label">Nama</label><input type="text" class="form-control form-control-sm" id="ttd_nama"></div>
+                <div class="col-5"><label class="form-label">Pangkat</label><input type="text" class="form-control form-control-sm" id="ttd_pangkat"></div>
+              </div>
+              <label class="form-label mt-1">NIP penanda tangan SP</label>
+              <input type="text" class="form-control form-control-sm" id="ttd_nip">
+              <div class="row g-2 mt-1">
+                <div class="col-7"><label class="form-label">KPA — nama</label><input type="text" class="form-control form-control-sm" id="kpa_nama"></div>
+                <div class="col-5"><label class="form-label">KPA — NIP</label><input type="text" class="form-control form-control-sm" id="kpa_nip"></div>
+              </div>
+              <label class="form-label mt-1">Tempat kedudukan</label>
+              <input type="text" class="form-control form-control-sm" id="kedudukan">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- ============ PREVIEW ============ -->
+  <div class="preview-pane">
+    <div class="preview-bar">
+      <ul class="nav nav-pills gap-1" id="tabs">
+        <li class="nav-item"><button class="nav-link active" data-t="sp" type="button">Surat Perintah</button></li>
+        <li class="nav-item"><button class="nav-link" data-t="spd" type="button">SPD + Visum <span class="badge bg-light text-dark ms-1" id="cnt">1</span></button></li>
+      </ul>
+      <div class="ms-auto d-flex gap-2 align-items-center">
+        <span class="spinner-border spinner-border-sm text-secondary d-none" id="spin" role="status"></span>
+        <button class="btn btn-sm btn-success" id="genBtn" type="button">Buat PDF</button>
+      </div>
+    </div>
+    <div id="result" class="result d-none"></div>
+    <div class="paper-wrap">
+      <iframe id="preview" title="Pratinjau dokumen"></iframe>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<?!= include('javascript'); ?>
+</body>
+</html>
